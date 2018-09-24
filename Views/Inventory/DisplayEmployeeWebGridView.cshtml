@@ -1,0 +1,37 @@
+﻿@using WebApplicationSept9.Models
+@model IEnumerable<Product>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (Product prod in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => prod.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => prod.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => prod.Quantity)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = prod.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = prod.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = prod.Id })
+            </td>
+        </tr>
+    }
+
+</table>

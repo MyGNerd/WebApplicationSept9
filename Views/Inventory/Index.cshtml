@@ -1,0 +1,83 @@
+﻿
+@*@model WebApplicationSept9.Models.Product*@
+
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<html>
+<head>
+
+    <title></title>
+    <script type="text/javascript">
+    $(function () {
+        $(".nav_link").click(function () {
+            //Custom attribute data_id is used to store the ID
+            //Get the ID
+            var id = $(this).attr("data_id");
+            //alert('id is ' + id);
+            $.ajax({
+                @*url: '@Url.Action("DisplayEmployees", "InventoryController")',*@
+                url: 'DisplayEmployees/',
+                type: "post",
+                dataType: "html",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ id: id }), //add parameter
+                success: function (data) {
+                    //success
+                    $('#ProductsDiv'+id).html(data); //populate the tab content.
+                },
+                error: function () {
+                    alert("error. no data to display");
+                }
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+
+    @*<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>*@
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" class="nav_link" data_id="1" href="#home">Home</a></li>
+            <li><a data-toggle="tab" class="nav_link" data_id="2" href="#menu1">Menu 1</a></li>
+            <li><a data-toggle="tab" class="nav_link" data_id="3" href="#menu2">Menu 2</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <h3>HOME</h3>
+                <p>Some content.</p>
+                <br />
+                <div id="ProductsDiv1">
+               
+                   
+
+                </div>
+            </div>
+            <div id="menu1" class="tab-pane fade">
+                <h3>Menu 1</h3>
+                <p>Some content in menu 1.</p><br />
+                <div id="ProductsDiv2">
+                </div>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+                <h3>Menu 2</h3>
+                <p>Some content in menu 2.</p><br />
+                <div id="ProductsDiv3">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
